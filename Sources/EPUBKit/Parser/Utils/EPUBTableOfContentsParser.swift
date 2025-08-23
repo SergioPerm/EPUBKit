@@ -138,13 +138,11 @@ class EPUBTableOfContentsParserImplementation: EPUBTableOfContentsParser {
 						let href = item.attributes["href"] ?? ""
 						let id = item.attributes["id"] ?? ""
 
-						// достаём <span class="toc-label"> и <span class="toc-desc">
 						let tocLabel = item["span"].all?
 							.first(where: { $0.attributes["class"] == "toc-label" })?.string ?? ""
 						let tocDesc = item["span"].all?
 							.first(where: { $0.attributes["class"] == "toc-desc" })?.string ?? ""
 
-						// если нет toc-label, можно fallback на сам .value
 						let title = !tocLabel.isEmpty ? tocLabel : (item.value ?? "")
 
 						var innerToc = EPUBTableOfContents(
