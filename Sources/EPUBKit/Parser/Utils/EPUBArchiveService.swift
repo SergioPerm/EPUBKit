@@ -57,17 +57,18 @@ class EPUBArchiveServiceImplementation: EPUBArchiveService {
     /// - Returns: The URL of the temporary directory containing the extracted contents.
     /// - Throws: `EPUBParserError.unzipFailed` wrapping the underlying extraction error.
     func unarchive(archive url: URL) throws -> URL {
-        var destination: URL
+//        var destination: URL
         do {
             // Use Zip library's quick extraction method
             // This extracts all contents to a system-managed temporary directory
-            destination = try Zip.quickUnzipFile(url)
+//            destination = try Zip.quickUnzipFile(url)
+			try Zip.unzipFile(url, destination: url.deletingLastPathComponent(), overwrite: true, password: nil)
         } catch {
             // Wrap the underlying error in our domain-specific error type
             // This provides better context about what operation failed
             throw EPUBParserError.unzipFailed(reason: error)
         }
-        return destination
+        return url.deletingLastPathComponent()
     }
 
 }
