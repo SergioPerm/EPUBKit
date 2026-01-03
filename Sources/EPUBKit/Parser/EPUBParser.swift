@@ -126,7 +126,11 @@ public final class EPUBParser: EPUBParserProtocol {
 				let tableOfContentsElement = try contentService.tableOfContents(path)
 				
 				tableOfContents = getTableOfContents(from: tableOfContentsElement)
-			} else if let path = manifest.items["nav"]?.path ?? manifest.items["toc"]?.path {
+			} else if
+				let path = manifest.items["nav"]?.path
+				?? manifest.items["toc"]?.path
+				?? manifest.items["toc.xhtml"]?.path
+			{
 				let tocURL = contentDirectory.appendingPathComponent(path, isDirectory: false)
 				
 				tableOfContents = try? tableOfContentsParser.parse(navtocUrl: tocURL)
