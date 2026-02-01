@@ -58,4 +58,16 @@ public struct EPUBTableOfContents {
     /// Represents nested navPoint elements in NCX.
     /// Allows multi-level table of contents (chapters > sections > subsections).
     public var subTable: [EPUBTableOfContents]?
+
+	public init(
+		label: String,
+		id: String,
+		item: String? = nil,
+		subTable: [EPUBTableOfContents]? = nil
+	) {
+		self.label = label
+		self.id = id
+		self.item = item
+		self.subTable = subTable
+	}
 }

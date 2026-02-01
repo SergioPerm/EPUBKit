@@ -237,13 +237,13 @@ extension EPUBTableOfContentsParserImplementation {
                 // Extract the unique ID attribute (required by NCX specification)
                 // Force unwrap is safe here because valid NCX files must have IDs
                 // Invalid NCX files should fail fast rather than continue with corrupted data
-                id: point.attributes["id"]!,
-                
+                id: point.attributes["id"] ?? "",
+
                 // Extract the content source from the content element
                 // This href points to the actual XHTML content file, potentially with a fragment identifier
                 // The src attribute is required by NCX spec, so force unwrap is appropriate
-                item: point["content"].attributes["src"]!,
-                
+                item: point["content"].attributes["src"] ?? "",
+
                 // RECURSIVE STEP: Process any nested navPoints
                 // This is the core of the recursive algorithm - each navPoint can contain
                 // child navPoints, creating unlimited nesting depth for complex documents
